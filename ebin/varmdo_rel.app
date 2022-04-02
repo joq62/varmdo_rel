@@ -1,0 +1,11 @@
+{application,varmdo_rel,
+             [{description,"An OTP application"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {mod,{varmdo_rel_app,[]}},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[no_matching_route_handler,varmdo,varmdo_handler,
+                        varmdo_rel_app,varmdo_rel_sup]},
+              {licenses,["Apache 2.0"]},
+              {links,[]}]}.

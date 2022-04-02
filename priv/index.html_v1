@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Websocket client</title>
+</head>
+
+<body>
+
+  <h1 >Välkommen till stug controller</h1>
+
+<div>Önskad temperatur</div>
+<div id="wanted_temp"></div>
+<br>
+<div>Temperatur</div>
+<div id="temp"></div>
+<br>
+<div>Dörr</div>
+<div id="door"></div>
+<br>
+<div>Besök</div>
+<div id="visitor"></div>
+
+
+<!-- <div id="wanted_temp">Önskad temperatur</div> -->
+
+<!-- <input type="text" id="myInput" value="" oninput="input1()"> -->
+<br>
+<button type="button" onclick="increase_temp();">Öka temperatur</button>
+<button type="button" onclick="decrease_temp();">Minska temperatur</button>
+
+<script>
+ /*   var ws = new WebSocket("ws://joqhome.dynamic-dns.net:8081/please_upgrade_to_websocket");
+  */
+  var ws = new WebSocket("ws://localhost:6809/please_upgrade_to_websocket");
+    ws.onerror = function(event) {
+        console.error("[ME]WebSocket error observed:", event);
+    };
+    ws.onclose = function(event) {
+        console.log("[ME]WebSocket is closed now.");
+    };
+
+
+  ws.onmessage = function (event) {
+      
+      console.log(event.data);
+      var str=event.data;
+      var arr=str.split(",");
+      
+      document.getElementById('temp').innerHTML=arr[0];
+      document.getElementById('door').innerHTML=arr[1];
+      document.getElementById('visitor').innerHTML=arr[2];
+      document.getElementById('wanted_temp').innerHTML=arr[3];
+  };
+
+// Joqs own golden code
+
+function increase_temp(){
+				ws.send("increase_temp");
+
+};
+function decrease_temp(){
+				ws.send("decrease_temp");
+
+};
+   </script>
+
+
+</html>
